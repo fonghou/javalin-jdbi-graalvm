@@ -1,0 +1,16 @@
+package com.emmajiugo.demo;
+
+import io.javalin.http.Context;
+import org.eclipse.jetty.servlet.ServletMapping;
+import org.graalvm.nativeimage.Feature;
+import org.graalvm.nativeimage.RuntimeReflection;
+import org.slf4j.Logger;
+
+public class GraalVMCompat implements Feature {
+
+    public void beforeAnalysis(BeforeAnalysisAccess access) {
+        RuntimeReflection.register(ServletMapping[].class);
+        RuntimeReflection.register(Logger.class);
+        RuntimeReflection.register(Context.class);
+    }
+}
