@@ -21,7 +21,7 @@
     "allPublicMethods": true
   },
   {
-    "name": "com.emmajiugo.graalvm.Test",
+    "name": "com.emmajiugo.demo.Test",
     "allDeclaredFields": true,
     "allPublicFields": true,
     "allDeclaredMethods": true,
