@@ -10,18 +10,23 @@ public class Main {
         Jdbi jdbi = Jdbi.create("jdbc:h2:mem:test");
 
         List<User> users = jdbi.withHandle(handle -> {
-            handle.execute("CREATE TABLE \"user\" (id INTEGER PRIMARY KEY, \"name\" VARCHAR)");
+            handle.execute("""
+                CREATE TABLE "user" (id INTEGER PRIMARY KEY, "name" VARCHAR)""");
 
             // Inline positional parameters
-            handle.execute("INSERT INTO \"user\" (id, \"name\") VALUES (?, ?)", 0, "Alice");
+            handle.execute("""
+                INSERT INTO "user" (id, "name") VALUES (?, ?)""", 0, "Alice");
 
             // Positional parameters
-            handle.createUpdate("INSERT INTO \"user\" (id, \"name\") VALUES (?, ?)")
+            handle.createUpdate("""
+                INSERT INTO "user" (id, "name") VALUES (?, ?)""")
                     .bind(0, 1) // 0-based parameter indexes
                     .bind(1, "Bob")
                     .execute();
 
-            return handle.createQuery("SELECT * FROM \"user\" ORDER BY \"name\"")
+            return handle.createQuery("""
+                SELECT * FROM "user" ORDER BY "name"
+                """)
                     .mapToBean(User.class)
                     .list();
         });

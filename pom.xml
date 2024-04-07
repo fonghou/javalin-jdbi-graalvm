@@ -9,12 +9,12 @@
 
     <properties>
         <java.version>21</java.version>
-        <native.maven.plugin.version>0.10.1</native.maven.plugin.version>
-        <junit.jupiter.version>5.8.1</junit.jupiter.version>
         <maven.compiler.source>${java.specification.version}</maven.compiler.source>
         <maven.compiler.target>${java.specification.version}</maven.compiler.target>
+        <native.maven.plugin.version>0.10.1</native.maven.plugin.version>
         <imageName>javalin-native</imageName>
         <mainClass>com.emmajiugo.demo.Main</mainClass>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -29,6 +29,7 @@
             <artifactId>jdbi3-core</artifactId>
             <version>3.45.1</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.jdbi</groupId>
@@ -46,6 +47,13 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.16.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.immutables</groupId>
+            <artifactId>value</artifactId>
+            <version>2.10.1</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
