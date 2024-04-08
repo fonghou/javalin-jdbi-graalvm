@@ -15,6 +15,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+
         Jdbi jdbi = Jdbi.create("jdbc:h2:mem:test");
         jdbi.installPlugin(new SqlObjectPlugin());
 
@@ -41,8 +42,10 @@ public class Main {
                     .list();
         });
 
-        Javalin app = Javalin.create(/*config*/)
-                .start(7070);
+        String imageKind = System.getProperty("org.graalvm.nativeimage.kind");
+        Javalin app = Javalin.create(config -> {
+            config.useVirtualThreads = imageKind == null;
+        }).start(7070);
 
         app.get("/", ctx -> ctx.result("Hello World"));
         app.get("/users", ctx -> ctx.json(users));
