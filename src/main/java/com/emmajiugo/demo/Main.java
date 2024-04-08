@@ -1,10 +1,16 @@
 package com.emmajiugo.demo;
 
 import java.util.List;
-import io.javalin.Javalin;
+
 import org.jdbi.v3.core.Jdbi;
 
+import io.javalin.Javalin;
+
 public class Main {
+
+    record User(int id, String name) {
+
+    }
 
     public static void main(String[] args) {
         Jdbi jdbi = Jdbi.create("jdbc:h2:mem:test");
@@ -27,7 +33,7 @@ public class Main {
             return handle.createQuery("""
                 SELECT * FROM "user" ORDER BY "name"
                 """)
-                    .mapToBean(User.class)
+                    .map((row, ctx) -> new User(row.getInt("id"), row.getString("name")))
                     .list();
         });
 
