@@ -42,9 +42,9 @@ public class Main {
                     .list();
         });
 
-        String imageKind = System.getProperty("org.graalvm.nativeimage.kind");
+        String nativeImage = System.getProperty("org.graalvm.nativeimage.kind");
         Javalin app = Javalin.create(config -> {
-            config.useVirtualThreads = imageKind == null;
+            config.useVirtualThreads = nativeImage == null;
         }).start(7070);
 
         app.get("/", ctx -> ctx.result("Hello World"));
