@@ -37,8 +37,7 @@ public class Main {
 
             return handle.createQuery("""
                 SELECT * FROM users ORDER BY name
-                """)
-                    .map(ConstructorMapper.of(User.class))
+                """).map(ConstructorMapper.of(User.class))
                     .list();
         });
 
