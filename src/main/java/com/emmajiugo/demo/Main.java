@@ -10,16 +10,12 @@ import io.javalin.Javalin;
 
 public class Main {
 
-    public record User(int id, String name) {
-
-    }
-
     public static void main(String[] args) {
 
         Jdbi jdbi = Jdbi.create("jdbc:h2:mem:test");
         jdbi.installPlugin(new SqlObjectPlugin());
 
-        List<User> users = jdbi.withHandle(handle -> {
+        List<UserDao.User> users = jdbi.withHandle(handle -> {
             handle.execute("""
                 CREATE TABLE users (id INTEGER PRIMARY KEY, name VARCHAR)""");
 
@@ -37,7 +33,7 @@ public class Main {
 
             return handle.createQuery("""
                 SELECT * FROM users ORDER BY name
-                """).map(ConstructorMapper.of(User.class))
+                """).map(ConstructorMapper.of(UserDao.User.class))
                     .list();
         });
 
